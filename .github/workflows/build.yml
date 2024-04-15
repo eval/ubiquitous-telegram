@@ -1,0 +1,23 @@
+name: Build native image
+on:
+  push:
+
+jobs:
+  linux-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - name: Build native image
+        run: |
+          bun run --bun nbb bundle hello.cljs -o out.mjs
+          bun build out.mjs --compile --outfile hello
+          time ./hello
+          time ./hello
+      - name: Rename
+        run: mv hello cli.linux-amd64
+      - uses: actions/upload-artifact@master
+        with:
+          name: cli.linux-amd64
+          path: ./cli.linux-amd64

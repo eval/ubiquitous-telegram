@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "nbb": "^1.2.187"
+  },
+  "scripts": {
+    "prebundle": "nbb bundle hello.cljs -o out.mjs",
+    "bundle": "bun build out.mjs --compile --outfile hello"
+  }
+}
